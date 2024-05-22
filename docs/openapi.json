@@ -1,0 +1,214 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Meditation Journal  REST API",
+    "description": "This is a simple Express API. It supports users to practice and record their activities to help improve their learning.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "n11164891@qut.edu.au"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/meditate": {
+      "get": {
+        "tags": ["note"],
+        "summary": "Returns all the notes written by users",
+        "description": "Information include date, goal, user experience, and how they think they can improve next time.",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "meditate": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "date": {
+                            "type": "string"
+                          },
+                          "goal": {
+                            "type": "string"
+                          },
+                          "input1": {
+                            "type": "string"
+                          },
+                          "input2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["note"],
+        "summary": "Add a new meditation note",
+        "description": "Allows users to add a new meditation note.",
+        "operationID": "addPet",
+        "requestBody": {
+          "description": "Create a new note",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userID": {
+                    "type": "string",
+                    "description": "User ID of the person meditating"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "Date the mediation note was written"
+                  },
+                  "goal": {
+                    "type": "string",
+                    "description": "Is the user complete the session? Yes or No."
+                  },
+                  "input1": {
+                    "type": "string",
+                    "description": "Experience of the user"
+                  },
+                  "input2": {
+                    "type": "string",
+                    "description": "What can be done next time to make it better?"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Note added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "meditate": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "userID": {
+                            "type": "string"
+                          },
+                          "date": {
+                            "type": "string"
+                          },
+                          "goal": {
+                            "type": "string"
+                          },
+                          "input1": {
+                            "type": "string"
+                          },
+                          "input2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing meditation note",
+        "description": "Allows users to update an existing meditation note.",
+        "responses": {
+          "200": {
+            "description": "Note updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing meditation note",
+        "description": "Allows users to delete an existing meditation note.",
+        "responses": {
+          "202": {
+            "description": "Note deleted successfully"
+          }
+        }
+      }
+    },
+    "/meditate/{Date}": {
+      "get": {
+        "tags": ["note"],
+        "summary": "Recording in the past according to date",
+        "description": "Data recorded on the selected date",
+        "parameters": [
+          {
+            "name": "Date",
+            "in": "path",
+            "description": "Date in the format of YYYY-MM-DD",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "2019-02-19"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "meditate": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "goal": {
+                            "type": "string"
+                          },
+                          "input1": {
+                            "type": "string"
+                          },
+                          "input2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
