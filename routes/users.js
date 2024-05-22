@@ -8,18 +8,18 @@ router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-router.post("/meditate", (req, res) => {
-  const { userID, date, goal, input1, input2 } = req.body;
-  db("meditate")
-    .insert({ userID, date, goal, input1, input2 })
-    .then((result) => {
-      res.json(result); // Send the result back to the client
-    })
-    .catch((err) => {
-      console.error("Error inserting data:", err);
-      res.status(500).json({ error: "Error inserting data" });
-    });
-});
+// router.post("/meditate", (req, res) => {
+//   const { userID, date, goal, input1, input2 } = req.body;
+//   db("meditate")
+//     .insert({ userID, date, goal, input1, input2 })
+//     .then((result) => {
+//       res.json(result); // Send the result back to the client
+//     })
+//     .catch((err) => {
+//       console.error("Error inserting data:", err);
+//       res.status(500).json({ error: "Error inserting data" });
+//     });
+// });
 
 router.put("/put", (req, res) => {
   const { userID, date, goal, input1, input2 } = req.body;

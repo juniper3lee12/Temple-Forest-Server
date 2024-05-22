@@ -85,4 +85,23 @@ router.get("/meditate/:Date", async function (req, res) {
   }
 });
 
+router.post("/meditate", async (req, res) => {
+  const userID = req.body.userID;
+  const date = req.body.date;
+  const goal = req.body.goal;
+  const input1 = req.body.input1;
+  const input2 = req.body.input2;
+
+  if (!userID) {
+    return res.status(400).json({ message: "Username is required" });
+  }
+  try {
+    await req.db("meditate").insert({ userID, date, goal, input1, input2 });
+    res.json({ message: "data successfully stored!" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;
