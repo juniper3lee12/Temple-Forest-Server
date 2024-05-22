@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Meditation Journal  REST API",
+    "title": "TEMPLE FOREST- Meditation Journal  REST API",
     "description": "This is a simple Express API. It supports users to practice and record their activities to help improve their learning.",
     "version": "1.0.0",
     "contact": {
@@ -61,7 +61,7 @@
         "tags": ["note"],
         "summary": "Add a new meditation note",
         "description": "Allows users to add a new meditation note.",
-        "operationID": "addPet",
+        "operationID": "addNote",
         "requestBody": {
           "description": "Create a new note",
           "content": {
@@ -79,7 +79,7 @@
                   },
                   "goal": {
                     "type": "string",
-                    "description": "Is the user complete the session? Yes or No."
+                    "description": "Is the user complete the session? A value of zero is considered no. Nonzero values are considered yes"
                   },
                   "input1": {
                     "type": "string",
@@ -159,7 +159,7 @@
     "/meditate/{Date}": {
       "get": {
         "tags": ["note"],
-        "summary": "Recording in the past according to date",
+        "summary": "Returns notes by using date as a parameter",
         "description": "Data recorded on the selected date",
         "parameters": [
           {
@@ -197,6 +197,128 @@
                             "type": "string"
                           },
                           "input2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Sign up to become a member",
+        "description": "Sign up with username and password",
+        "operationID": "signUp",
+        "requestBody": {
+          "description": "Register with the app",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email will be used as a usename/userID."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password will be encrypted in the database."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Information added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string"
+                          },
+                          "hash": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Logs user in to Temple Forest",
+        "description": "Login with username and password",
+        "operationID": "logIn",
+        "requestBody": {
+          "description": "Login with the app",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Email will be used as a usename/userID."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "Password will be encrypted in the database."
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Information added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "email": {
+                            "type": "string"
+                          },
+                          "hash": {
                             "type": "string"
                           }
                         }
