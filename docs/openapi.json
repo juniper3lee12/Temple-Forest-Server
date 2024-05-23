@@ -151,24 +151,6 @@
             }
           }
         }
-      },
-      "put": {
-        "summary": "Update an existing meditation note",
-        "description": "Allows users to update an existing meditation note.",
-        "responses": {
-          "200": {
-            "description": "Note updated successfully"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete an existing meditation note",
-        "description": "Allows users to delete an existing meditation note.",
-        "responses": {
-          "202": {
-            "description": "Note deleted successfully"
-          }
-        }
       }
     },
     "/meditate/{Date}": {
@@ -410,6 +392,28 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/users/delete/{id}": {
+      "delete": {
+        "tags": ["user"],
+        "summary": "Delete an existing meditation note",
+        "description": "Allows users to delete an existing meditation note.",
+        "operationId": "deleteNote",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "an ID of the note needs to be deleted.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Note deleted successfully"
           }
         }
       }

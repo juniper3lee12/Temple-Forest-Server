@@ -149,6 +149,18 @@ router.put("/update/:id", authorize, async function (req, res) {
   }
 });
 
+router.delete("/delete/:id", authorize, async function (req, res) {
+  const { id } = req.params;
+
+  try {
+    const currentNote = await req.db("meditate_new").where({ id }).del();
+    res.status(200).json({ message: "Delete Successful" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error deleting the note", error: err });
+  }
+});
+
 router.post("/city", authorize, function (req, res) {
   res.json({ doSomething: req.email });
 });
