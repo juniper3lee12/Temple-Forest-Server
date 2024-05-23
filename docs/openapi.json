@@ -12,14 +12,21 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "securityDefinitions": {
-    "Bearer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "Enter the token with the `Bearer: ` prefix, e.g. \"Bearer abcde12345\"."
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Enter the token with the `Bearer ` prefix, e.g. \"Bearer abcde12345\"."
+      }
     }
   },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
   "paths": {
     "/meditate": {
       "get": {
@@ -411,12 +418,7 @@
               }
             }
           }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
+        }
       }
     }
   }
