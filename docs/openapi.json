@@ -355,15 +355,8 @@
         "operationId": "updateNote",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "description": "an authorisation header",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "description": "an ID of the note needs to be updated.",
             "required": true,
             "type": "string"
@@ -376,10 +369,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "input1": {
+                  "message1": {
                     "type": "string"
                   },
-                  "input2": {
+                  "message2": {
                     "type": "string"
                   }
                 }
