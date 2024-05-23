@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
 
 // router.post("/meditate", (req, res) => {
 //   const { userID, date, goal, input1, input2 } = req.body;
-//   db("meditate")
+//   db("meditate_new")
 //     .insert({ userID, date, goal, input1, input2 })
 //     .then((result) => {
 //       res.json(result); // Send the result back to the client
@@ -24,7 +24,7 @@ router.get("/", function (req, res, next) {
 router.put("/put", (req, res) => {
   const { userID, date, goal, input1, input2 } = req.body;
   connection.query(
-    "UPDATE meditate SET date=?, goal=?, input1?, input2=?, WHERE userID=?",
+    "UPDATE meditate_new SET date=?, goal=?, input1?, input2=?, WHERE userID=?",
     [date, goal, input1, input2, userID],
     function (err, results) {
       res.json(results);
@@ -109,8 +109,8 @@ const authorize = (req, res, next) => {
   const authorization = req.headers.authorization;
   let token = null;
 
-  if (authorization && authorization.split("").length === 2) {
-    token - authorization.split("")[1];
+  if (authorization && authorization.split(" ").length === 2) {
+    token = authorization.split(" ")[1];
     console.log("Token: ", token);
   } else {
     res.json({ error: true, message: "No authorisation token" });
@@ -131,6 +131,23 @@ const authorize = (req, res, next) => {
 
   //1.07 minutes week11
 };
+
+router.put("/update/:id", authorize, async function (req, res) {
+  const { id } = req.params;
+  const message1 = req.body.message1;
+  const message2 = req.body.message2;
+
+  try {
+    const currentNote = await req.db("meditate_new").where({ id }).update({
+      input1: message1,
+      input2: message2,
+    });
+    res.status(201).json({ message: "Updated Successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error updating new note", error: err });
+  }
+});
 
 router.post("/city", authorize, function (req, res) {
   res.json({ doSomething: req.email });

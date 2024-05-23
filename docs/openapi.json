@@ -12,6 +12,14 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter the token with the `Bearer: ` prefix, e.g. \"Bearer abcde12345\"."
+    }
+  },
   "paths": {
     "/meditate": {
       "get": {
@@ -330,6 +338,85 @@
             }
           }
         }
+      }
+    },
+    "/users/update/{id}": {
+      "put": {
+        "tags": ["user"],
+        "summary": "Update an existing meditation note",
+        "description": "Allows users to update an existing meditation note.",
+        "operationId": "updateNote",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "an authorisation header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "an ID of the note needs to be updated.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "input1": {
+                    "type": "string"
+                  },
+                  "input2": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Note updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": ["true", "false"]
+                    },
+                    "meditate": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "input1": {
+                            "type": "string"
+                          },
+                          "input2": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     }
   }

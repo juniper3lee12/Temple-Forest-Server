@@ -8,7 +8,9 @@ router.get("/", function (req, res, next) {
 
 router.get("/meditate", async function (req, res) {
   try {
-    const notes = await req.db.from("meditate").select("date", "input2");
+    const notes = await req.db
+      .from("meditate_new")
+      .select("date", "input1", "input2");
     res.json({ error: false, notes });
   } catch (err) {
     console.log(err);
@@ -66,7 +68,7 @@ router.get("/meditate/:Date", async function (req, res) {
   const dateParam = req.params.Date;
   let Date = req.params.Date;
   try {
-    let query = req.db("meditate").select("goal", "input1", "input2");
+    let query = req.db("meditate_new").select("goal", "input1", "input2");
 
     if (dateParam !== "ALL") {
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -96,7 +98,7 @@ router.post("/meditate", async (req, res) => {
     return res.status(400).json({ message: "Username is required" });
   }
   try {
-    await req.db("meditate").insert({ userID, date, goal, input1, input2 });
+    await req.db("meditate_new").insert({ userID, date, goal, input1, input2 });
     res.json({ message: "data successfully stored!" });
   } catch (err) {
     console.log(err);
