@@ -78,6 +78,9 @@ router.post("/login", (req, res) => {
     return;
   }
 
+  console.log("email is: ", email);
+  console.log("password is: ", password);
+
   const queryUsers = req.db
     .from("users")
     .select("email", "hash")
@@ -88,6 +91,7 @@ router.post("/login", (req, res) => {
       }
 
       const user = users[0];
+      console.log(users);
       return bcrypt.compare(password, user.hash);
     })
     .then((match) => {
@@ -101,7 +105,7 @@ router.post("/login", (req, res) => {
       const exp = Date.now() + expires_in * 1000;
       const token = jwt.sign({ email, exp }, secretKey);
 
-      res.json({ token_type: "Bearer", token, expires_in });
+      res.json({ token_type: "Bearer", token, expires_in, status: "ok" });
     });
 });
 
