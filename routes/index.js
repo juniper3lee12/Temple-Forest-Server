@@ -10,7 +10,7 @@ router.get("/meditate", async function (req, res) {
   try {
     const notes = await req.db
       .from("meditate_new")
-      .select("date", "input1", "input2");
+      .select("date", "input1", "input2", "id");
     res.json({ error: false, notes });
   } catch (err) {
     console.log(err);
@@ -102,7 +102,7 @@ router.post("/meditate", async (req, res) => {
     res.json({ message: "data successfully stored!" });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Server error" });
   }
 });
 

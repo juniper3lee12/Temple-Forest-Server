@@ -78,9 +78,6 @@ router.post("/login", (req, res) => {
     return;
   }
 
-  console.log("email is: ", email);
-  console.log("password is: ", password);
-
   const queryUsers = req.db
     .from("users")
     .select("email", "hash")
@@ -135,6 +132,18 @@ const authorize = (req, res, next) => {
 
   //1.07 minutes week11
 };
+
+router.get("/meditate/:userID", authorize, async function (req, res) {
+  try {
+    const notes = await req.db
+      .from("meditate_new")
+      .select("date", "input1", "input2");
+    res.json({ error: false, notes });
+  } catch (err) {
+    console.log(err);
+    res.json({ error: true, error: err });
+  }
+});
 
 router.put("/update/:id", authorize, async function (req, res) {
   const { id } = req.params;
