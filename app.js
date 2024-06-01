@@ -32,7 +32,7 @@ app.use(cors());
 app.use((req, res, next) => {
   req.db = knex;
   next();
-}); //
+});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

@@ -6,6 +6,7 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
+/* GET all the notes. */
 router.get("/meditate", async function (req, res) {
   try {
     const notes = await req.db
@@ -18,52 +19,7 @@ router.get("/meditate", async function (req, res) {
   }
 });
 
-router.get("/note/all", (req, res) => {
-  connection.query("SELECT * FROM meditate", function (err, results) {
-    res.json(results);
-  });
-});
-
-router.get("/api/city", async function (req, res) {
-  try {
-    const cities = await req.db.from("city").select("name", "district");
-    res.json({ error: false, cities });
-  } catch (err) {
-    console.log(err);
-    res.json({ error: true, error: err });
-  }
-});
-
-//เอาแค่บางเมือง
-
-// router.get("/api/city/:CountryCode", async function (req, res) {
-//   try {
-//     const cities = await req.db
-//       .from("City")
-//       .select("name", "district")
-//       .where("CountryCode", ">", req.params.CountryCode);
-
-//     res.json({ error: false, cities });
-//   } catch (err) {
-//     res.json({ error: true, error: err });
-//   }
-// });
-
-router.get("/api/city/:CountryCode", async function (req, res) {
-  let CountryCode = req.params.CountryCode;
-  try {
-    const cities = req.db.from("City").select("name", "district");
-
-    if (CountryCode != "ALL") {
-      cities.where("CountryCode", CountryCode);
-    }
-
-    res.json({ error: false, cities: await cities });
-  } catch (err) {
-    res.json({ error: true, error: err });
-  }
-});
-
+/* GET the notes from a particular date. */
 router.get("/meditate/:Date", async function (req, res) {
   const dateParam = req.params.Date;
   let Date = req.params.Date;
@@ -87,19 +43,21 @@ router.get("/meditate/:Date", async function (req, res) {
   }
 });
 
+/* POST a note. */
+
 router.post("/meditate", async (req, res) => {
   const userID = req.body.userID;
-  const date = req.body.date;
-  const goal = req.body.goal;
-  const input1 = req.body.input1;
-  const input2 = req.body.input2;
+  const date = req.body.date; // Date of writing a meditation journal
+  const goal = req.body.goal; // TINYINT(1) data type indicates that the user achieved the goal or not.
+  const input1 = req.body.input1; // Input1 explains experience of the users.
+  const input2 = req.body.input2; // Input2 explains a comment from a master
 
   if (!userID) {
     return res.status(400).json({ message: "Username is required" });
   }
   try {
     await req.db("meditate_new").insert({ userID, date, goal, input1, input2 });
-    res.json({ message: "data successfully stored!" });
+    res.json({ message: "data successfully stored!", status: "ok" });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });

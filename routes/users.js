@@ -1,37 +1,15 @@
+require("dotenv").config();
 var express = require("express");
 var router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const secret = process.env.SECRET;
 
-/* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
-// router.post("/meditate", (req, res) => {
-//   const { userID, date, goal, input1, input2 } = req.body;
-//   db("meditate_new")
-//     .insert({ userID, date, goal, input1, input2 })
-//     .then((result) => {
-//       res.json(result); // Send the result back to the client
-//     })
-//     .catch((err) => {
-//       console.error("Error inserting data:", err);
-//       res.status(500).json({ error: "Error inserting data" });
-//     });
-// });
-
-router.put("/put", (req, res) => {
-  const { userID, date, goal, input1, input2 } = req.body;
-  connection.query(
-    "UPDATE meditate_new SET date=?, goal=?, input1?, input2=?, WHERE userID=?",
-    [date, goal, input1, input2, userID],
-    function (err, results) {
-      res.json(results);
-    }
-  );
-});
-
+/* Register. */
 router.post("/register", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -66,6 +44,7 @@ router.post("/register", (req, res) => {
     });
 });
 
+/* User login */
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -96,7 +75,7 @@ router.post("/login", (req, res) => {
         res.status(401).json({ error: true, message: "Password do not match" });
       }
 
-      const secretKey = "secretkey"; /// nedd to be in environment variable
+      const secretKey = secret;
       const expires_in = 60 * 60 * 24;
 
       const exp = Date.now() + expires_in * 1000;
@@ -129,10 +108,9 @@ const authorize = (req, res, next) => {
   } catch (err) {
     res.json({ error: true, message: "Token is not valid: ", err });
   }
-
-  //1.07 minutes week11
 };
 
+/* Get notes details of a user. This function needs the user to login to the system */
 router.get("/meditate/:userID", authorize, async function (req, res) {
   try {
     const notes = await req.db
@@ -145,6 +123,7 @@ router.get("/meditate/:userID", authorize, async function (req, res) {
   }
 });
 
+/* Revise a particular note identifying by id. This function needs the user to login to the system */
 router.put("/update/:id", authorize, async function (req, res) {
   const { id } = req.params;
   const message1 = req.body.message1;
@@ -162,6 +141,7 @@ router.put("/update/:id", authorize, async function (req, res) {
   }
 });
 
+/* Delete a particular note identifying by id. This function needs the user to login to the system */
 router.delete("/delete/:id", authorize, async function (req, res) {
   const { id } = req.params;
 
@@ -172,10 +152,6 @@ router.delete("/delete/:id", authorize, async function (req, res) {
     console.log(err);
     res.status(500).json({ message: "Error deleting the note", error: err });
   }
-});
-
-router.post("/city", authorize, function (req, res) {
-  res.json({ doSomething: req.email });
 });
 
 module.exports = router;
