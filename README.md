@@ -1,27 +1,18 @@
 # Welcome
-
-This application aims to help facilitate members who want to integrate meditation into their daily lives. The meditation centre may find this application useful for them as it can help improve communication with members of the centre. Users will be learning about different types of meditation practices, record their activities, and receive feedback from masters. This will help improve their meditation skills by allowing them to communicate with and receive support from experienced meditation masters.
-
-# How to contribute
-
-Help us by cloning this repository from GitHub, use it, and communicate with masters. If any feature needs improvement, please do not hesitate to post it in your meditation journal. This is how we can receive your feedback.
+This application aims to help temples give feedback to their students in meditation classes. Users will learn about different types of meditation practices, record their activities, and receive feedback from staff or teachers. This will help improve their meditation skills and allow them to receive support from experienced meditation teachers.
 
 # Features
 
 <!-- prettier-ignore -->
-| **Number** |    **Features** |                                                **Description**                                               |      
-|------------|-----------------|--------------------------------------------------------------------------------------------------------------|
-| 1.         |       POST      | This feature allows users to share their experiences through a meditation journal.                           |
-|            |                 | This information will be read by masters, who will and provide useful feedback to help improve users' skills.|      
-| 2.         |       GET       | This feature allows a master to read and obtain all information shared by users.                             |
-|            |                 | The users who begin practicing meditation can view the feedback provided by masters in different scenarios,  |
-|            |                 | both for themselves and other members.                                                                       |    
-| 3.         |      DELETE     | Masters and registered members can delete the posts if they are too old or not useful.                       |      
-| 4.         |       PUT       | Masters and registered members can edit the posts they have made.                                            |
+| **Number** |    **Features** |                                                **Description**                                                 |      
+|------------|-----------------|----------------------------------------------------------------------------------------------------------------|
+| 1.         |       POST      | This feature allows users to share their experiences through a meditation journal.                             |
+|            |                 | This information will be read by staff members, who will provide useful feedback to help improve users' skills.|      
+| 2.         |       GET       | This feature allows a teacher to read all information shared by users.                                         |
+| 3.         |       DELETE    | The teacher can delete the selected posts.                                                                     |  
+| 4.         |       PUT       | The teacher can edit the posts made by students.                                                               |
 
 # Dependencies and how to install them
-
-More than 20 dependencies have been installed in this application. The following are just the key third-party libraries. Find all information from `licenses.json`file. However, please note not that all dependencies in `licenses.json`file were used in the project. Some of them were installed for testing, and end up with not using them.
 
 <!-- prettier-ignore -->
 | **Number** |         **Dependencies**        | **How to install**                                                 |   
@@ -38,11 +29,12 @@ More than 20 dependencies have been installed in this application. The following
 
 ![Diagram](https://i.ibb.co/swPfFPw/Image.png)
 
-## Components
+# Components
+*** This repository contains only the server-side component.
 
 ### Client-side Component
 
-The Expo app provides the user interface and user experience, allowing users to interact with the application.
+The Expo app provides the user interface, allowing users to interact with the application.
 
 ### API Requests
 
@@ -51,7 +43,7 @@ When a user performs an action that requires data from the server (e.g., logging
 ### Express Server
 
 The Express server defines various API endpoints that the Expo app can interact with. These endpoints handle HTTP requests such as GET, POST, PUT, and DELETE.
-The server processes the requests, executes, and interacts with the database to fetch or store data. After processing the request, the server sends the appropriate response back to the Expo app.
+The server processes these requests, and interacts with the database to fetch or store data. After processing the request, the server sends the appropriate response back to the Expo app.
 
 ### MySQL Database
 
@@ -59,4 +51,4 @@ It stores all the persistent data, such as users information including email and
 
 # Getting help, giving feedback, and report issues
 
-We value your feedback and want to ensure the best experience possible. If you encounter any issues or have suggestions for improvement, please contact me using the email provided in theSwagger documentation (N11164891@qut.edu.au).
+We value your feedback and want to ensure the best experience possible. If you encounter any issues or have suggestions for improvement, please contact me using the email provided in the Swagger documentation (N11164891@qut.edu.au).
