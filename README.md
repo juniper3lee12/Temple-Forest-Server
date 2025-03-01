@@ -49,6 +49,6 @@ The server processes these requests, and interacts with the database to fetch or
 
 It stores all the persistent data, such as users information including email and encripted password, dates, goal, and all the inputs received from client-side component. The Express server communicates with the database after processing the request, the Express server sends the response back to the Expo app and update the client-side component.
 
-# Getting help, giving feedback, and report issues
+# Getting help, giving feedback, and reporting issues
 
 We value your feedback and want to ensure the best experience possible. If you encounter any issues or have suggestions for improvement, please contact me using the email provided in the Swagger documentation (N11164891@qut.edu.au).
